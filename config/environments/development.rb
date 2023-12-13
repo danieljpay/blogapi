@@ -20,6 +20,8 @@ Rails.application.configure do
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
+    config.action_controller.perform_caching = true
+
     config.cache_store = :memory_store
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
@@ -27,7 +29,7 @@ Rails.application.configure do
   else
     config.action_controller.perform_caching = false
 
-    config.cache_store = :null_store
+    config.cache_store = :memory_store
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
@@ -52,6 +54,7 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
+  config.action_mailer.delivery_method = :letter_opener
 
 
   # Raises error for missing translations.
